@@ -1,0 +1,770 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Music</title>
+    <link rel="stylesheet" href="themify-icons/themify-icons.css">
+</head>
+<style>
+    * {
+        box-sizing: inherit;
+    }
+    html{
+        
+        background: url(anh/note-ngay-50-anh-bau-troi-buon-dep-tam-trang-tinh-mich_6.jpg) no-repeat;
+        background-size: 100% 100%;
+        background-position: center;
+        
+    }
+
+    .app-music {
+        margin: 0 auto;
+        max-width: 480px;
+        margin-top: 640px;
+        width: 100%;
+
+
+    }
+
+    .play-zone {
+        margin-top: 10px;
+        max-width: 480px;
+        text-align: center;
+        backdrop-filter: blur(100px);
+        
+        border-radius: 20px;
+        padding: 20px 0;
+        position: fixed;
+        top: 0;
+        width: 100%;
+        z-index: 10;
+        box-shadow: 0 0 10px 10px white;
+    }
+
+    .img {
+        width: 250px;
+        display: flex;
+        margin: 0 auto;
+    }
+
+    .img>img {
+        width: 100%;
+        height: auto;
+        border-radius: 50%;
+        box-shadow: 0 0 5px 5px white;
+        
+    }
+
+    body {
+        font-family: sans-serif;
+    }
+
+    .icon {
+        display: flex;
+        justify-content: space-around;
+        color: #fff;
+    }
+    .icon i:hover{
+        cursor: pointer;
+    }
+    .icon i {
+        font-size: 45px;
+        font-weight: 500;
+       
+    }
+
+    input[type='range']:active::-webkit-slider-thumb {
+        transform: scale(1.1);
+    }
+
+    input[type="range"]::-webkit-slider-thumb {
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        -webkit-border-radius: 5px;
+        height: 16px;
+        width: 16px;
+        border-radius: 50%;
+        background: #e7e7e7;
+        border: 1px solid #c5c5c5;
+    }
+
+    .input {
+
+        height: 3px;
+        width: 80%;
+
+        appearance: none;
+
+        background-color: #044a58fe;
+    }
+
+    .music-list {
+        border-radius: 20px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        background-color: rgba(0, 170, 255, 0.3);
+        padding: 20px 0;
+        box-shadow: 0 0 5px 5px rgb(255, 255, 255);
+
+    }
+
+    .item {
+        width: 80%;
+        height: 70px;
+        background-color:  rgba(255, 255, 255, 0.5);
+        display: flex;
+        border-radius: 10px;
+        align-items: center;
+        position: relative;
+        margin: 5px 0 10px 0;
+        box-shadow: rgba(255, 255, 255, 0.3) 0px 2px 8px 0px;
+
+
+    }
+    .item:active{
+        opacity: 0.4;
+    }
+
+    .item:hover {
+        cursor: pointer;
+        background-color: #6e7fc9;
+        transform: scale(1.05);
+        color: #fff;
+        transition: all 0.5s ease-in-out;
+    }
+    .title-now{
+        color: #fff;
+    }
+    .name{
+        color: #fff;
+    }
+    .item img {
+        height: 50px;
+        border-radius: 50%;
+        width: 50px;
+    }
+
+    .item .avatar {
+        margin-left: 20px;
+        height: 50px;
+    }
+
+    .item .name-list-music {
+        margin-left: 20px;
+        padding: 0;
+    }
+
+    .more>i {
+        font-size: 30px;
+        font-weight: 500;
+        line-height: 50px;
+    }
+
+    .more {
+        display: none;
+        margin-left: 50px;
+        padding: 0 10px;
+        position: absolute;
+        right: 0;
+    }
+
+    .name-list {
+        font-size: 15px;
+        font-weight: bold;
+
+    }
+
+    .name-tg {
+        font-weight: 400;
+        color: #fff;
+    }
+
+    .container {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+    }
+
+    .play {
+        background-color: #d84f4f;
+    }
+
+    .icon>div {
+        padding: 20px;
+        border-radius: 50%;
+    }
+
+    .hide {
+        display: none;
+    }
+
+    .click {
+        color: rgb(4, 0, 255);
+        transition: all 0.2s ease-in-out;
+        text-shadow: 0 0 2px rgb(0, 255, 157);
+    }
+
+    .item.style {
+        background-color: #d84f4f;
+    }
+
+    .item.style .name-list {
+        color: rgb(0, 255, 242);
+    }
+
+    .item.style .more {
+        display: block;
+    }
+
+    .item.style .tg {
+        color: rgb(0, 255, 242);
+    }
+
+    .item.style .bar {
+        background-color: #fff;
+    }
+
+
+    .container-music {}
+
+    .music-wave {
+        display: flex;
+        justify-content: space-around;
+        align-items: flex-end;
+        height: 20px;
+        width: 20px;
+    }
+
+    .bar {
+        width: 3px;
+        height: 10px;
+        background-color: #000;
+        animation: wave 0.5s infinite ease-in-out alternate;
+    }
+
+    .bar:nth-child(2) {
+        animation-delay: 0.1s;
+    }
+
+    .bar:nth-child(3) {
+        animation-delay: 0.2s;
+    }
+
+    @keyframes wave {
+        from {
+            height: 10px;
+
+        }
+
+        to {
+            height: 16px;
+
+        }
+    }
+    .list >i{
+        display: block;
+        font-size: 25px;
+        padding: 20px;
+        
+    }
+    .list{
+        display: flex;
+        justify-content: space-between;
+    }
+    .bg{
+        background: url(anh/background-anime.jpg) no-repeat;
+        background-size: 100% 100%;
+        background-position: center;
+    }
+    .bg .name{
+        color: #000;
+    }
+    .bg .title-now{
+        color: #000;
+    }
+    .bg .name-tg{
+        color: #000;
+    }
+    .bg .ti-shine{
+        color: #fff;
+        text-shadow: 0 0 10px rgb(255, 255, 255);
+    }
+    .ti-shine:active{
+        transition: all 0.5s ease-in-out;
+        transform: scale(0.6);
+    }
+    .list{
+        position: relative;
+    }
+    .bg .icon{
+        color: #000;
+    }
+    #volume-ms{
+        transform: rotate(90deg);
+        top: 110px;
+        right: -34px;
+       position: absolute;
+       padding: 10px 0;
+       display: none;
+       
+    }
+    .ti-volume:hover{
+        color: #ffffff;
+    }
+    .ti-volume:hover > #volume-ms{
+        display: block;
+    }
+
+    
+</style>
+
+<body>
+    <div class="app-music">
+        <div class="play-zone">
+            <div class="list">
+                <i class="ti-shine"></i>
+                <i class="ti-list"></i>
+                
+                    <i class="ti-volume">
+                        <input id="volume-ms" type="range" step="0.01" min="0" max="1">
+                    </i>
+                    
+                
+                
+            </div>
+            <h4 class="title-now">
+                Playing now
+            </h4>
+
+            <div class="img">
+                <img src="anh/untilifoundyou.jpg" alt="">
+            </div>
+            <h3 class="name">
+
+            </h3>
+            <h4 class="name-tg">
+
+            </h4>
+            <div class="icon">
+                <div class="loop">
+                    <i class="ti-loop"></i>
+                </div>
+                <div class="left">
+                    <i class="ti-control-skip-backward"></i>
+                </div>
+                <div class="play">
+                    <i class="ti-control-play"></i>
+                    <i class="ti-control-pause hide"></i>
+                </div>
+                <div class="right">
+                    <i class="ti-control-skip-forward"></i>
+                </div>
+                <div class="over">
+                    <i class="ti-control-shuffle"></i>
+                </div>
+
+            </div>
+            <audio id="audio" src="anh/dy.jpg"></audio>
+            <input type="range" step="0.05" value="0" min="0" max="100" class="input">
+        </div>
+        <div class="container-music">
+
+            <div class="music-list">
+
+
+
+            </div>
+            <div class="album">
+            </div>
+        </div>
+    </div>
+
+
+</body>
+<script>
+    const PLAYER_STORAGE = 'Wibu-Player'
+    const $ = document.querySelector.bind(document);
+    const $$ = document.querySelectorAll.bind(document);
+    const btnPlay = $(".play")
+    const nameSong = $(".name");
+    const imgSong = $(".img > img")
+    const audio = $("#audio")
+    const play = $(".ti-control-play")
+    const pause = $(".ti-control-pause")
+    const range = $(".input")
+    const btnNext = $(".right")
+    const btnPre = $(".left")
+    const tg_ = $(".name-tg")
+    const random = $(".over")
+    const loop = $(".ti-loop")
+    const item = document.getElementsByClassName("item");
+    const wave = document.getElementsByClassName("music-wave");
+    const list_ms =$(".music-list")
+    const bg = $(".ti-shine")
+    const html_bg = $("html")
+    const volume = $("#volume-ms")
+    const app = {
+        setting:JSON.parse(localStorage.getItem(PLAYER_STORAGE)) || {},
+        setSeting: function(key,value){
+            this.setting[key] = value
+            localStorage.setItem(PLAYER_STORAGE,JSON.stringify(this.setting))
+        },
+        isBg : false,
+        isLoop: false,
+        isRandom: false,
+        index: 0,
+        isPlaying: false,
+        songs: [
+            {
+                name: "Call Of Silence x Akuma No Ko",
+                tg: "Japandee",
+                linkMusic: "/nhac/y2meta.com - Call Of Silence x Akuma No Ko - Mit Ft Japandee Remix _ Nhạc Hot Tik Tok Remix Mới Nhất 2023 (320 kbps).mp3",
+                linkImg: "/anh/gambar-lambang-attack-on-titan-18.jpg"
+            },
+            {
+                name: "HỘI PHÁP SƯ (FAIRY TAIL)",
+                tg: "QUANG NHẬT REMIX",
+                linkMusic: "/nhac/y2meta.com - HỘI PHÁP SƯ (FAIRY TAIL) - QUANG NHẬT REMIX _ BẢN THÁNH CA HỒI SINH REMIX HOT TIKTOK _ NEWT MUSIC √ (320 kbps).mp3",
+                linkImg: "/anh/natsu-fairy-tail.jpg"
+            },
+            {
+                name: "BỐN BỂ ƯỚC THỀ REMIX",
+                tg: "NHẠC TRUNG",
+                linkMusic: "/nhac/y2meta.com - BỐN BỂ ƯỚC THỀ REMIX ft TÚY HỒNG NHAN REMIX _ NHẠC TRUNG HOT TIKTOK 2023 (320 kbps).mp3",
+                linkImg: "/anh/thuy.jpg"
+            },
+            {
+                name: "DYNASTY",
+                tg: "Japandee",
+                linkMusic: "/nhac/y2meta.com - DYNASTY - JAPANDEE x THEREON REMIX (320 kbps).mp3",
+                linkImg: "/anh/dy.jpg"
+            },
+            {
+                name: "East Of Eden",
+                tg: "Gudocci Remix",
+                linkMusic: "/nhac/y2meta.com - East Of Eden - Zella Day (Gudocci Remix) _ Hot TikTok 2023 _ Audio Lyrics Video (320 kbps).mp3",
+                linkImg: "/anh/artworks-dW2oyJhF6TdwX10I-3tqVag-t500x500.jpg"
+            },
+            {
+                name: "Ngày Em Đẹp Nhất",
+                tg: "Tama x Bell [Lofi Ver]",
+                linkMusic: "/nhac/y2meta.com - Ngày Em Đẹp Nhất - Tama x Bell「Lofi Ver」_ Vì ngày em đẹp nhất là ngày anh mất em!!! (320 kbps).mp3",
+                linkImg: "/anh/sddefault (1).jpg"
+            },
+            {
+                name: "TINH VỆ",
+                tg: "Japandee",
+                linkMusic: "/nhac/y2meta.com - TINH VỆ (精卫) - JAPANDEE REMIX (320 kbps).mp3",
+                linkImg: "/anh/artworks-ljhEENC8pP6fJIZV-yr7Nug-t240x240.jpg"
+            }
+        ],
+        render: function () {
+            const htmls = this.songs.map((song, index) => {
+                return `
+            <div class="item ${index === this.index ? 'style' : ''}" data-index="${index}">
+                <div class="container">
+                    <div class="avatar">
+                        <img src="${song.linkImg}" alt="">
+                        
+                    </div>
+                    <div class="name-list-music">
+                        <div class="name-list">${song.name}</div>
+                        <div class="tg"><i>${song.tg}</i></div>
+                    </div>
+                    <div class="more">
+                        
+
+                        <div class="music-wave">
+                        <div class="bar"></div>
+                        <div class="bar"></div>
+                        <div class="bar"></div>
+                    </div>
+                   
+                </div>
+                </div>
+            </div>
+            `
+            })
+
+
+            $(".music-list").innerHTML = htmls.join('');
+        },
+        defineProperties: function () {
+            Object.defineProperty(this, "currentSong", {
+                get: function () {
+                    return this.songs[this.index]
+                }
+            })
+        },
+
+        handleEvent: function () {
+            const _this = this
+            const img = $(".img");
+            const widthImg = img.offsetWidth
+            // xử lý khi cd quay dừng
+            const cdAnimate = img.animate([
+                {
+                    transform: "rotate(360deg)"
+                }
+            ], {
+                duration: 10000, // quay 10s
+                iterations: Infinity
+            })
+            cdAnimate.pause()
+            // khi click random
+            random.onclick = function () {
+                _this.isRandom = !_this.isRandom;
+                _this.setSeting('isRandom',_this.isRandom)
+                if (_this.isRandom) {
+                    random.classList.add("click")
+                }
+                else {
+                    random.classList.remove("click")
+                }
+            }
+
+
+            document.onscroll = function () {
+                const scrollTop = window.scrollY || document.documentElement.scrollTop;
+                const newWidth = widthImg - scrollTop
+                img.style.width = newWidth > 0 ? newWidth + 'px' : 0
+                img.style.opacity = newWidth / widthImg
+            }
+            // xử lý khi click nút play
+            btnPlay.onclick = function () {
+                if (_this.isPlaying) {
+                    audio.pause()
+                }
+                else {
+                    audio.play()
+                }
+
+
+
+            }
+            // khi song play
+            audio.onplay = function () {
+                
+                _this.isPlaying = true
+                play.classList.add('hide')
+                pause.classList.remove('hide')
+                cdAnimate.play()
+               
+            }
+            // khi song pause
+            audio.onpause = function () {
+                
+                _this.isPlaying = false
+                pause.classList.add('hide')
+                play.classList.remove('hide')
+                cdAnimate.pause()
+            }
+            // khi tiến độ bài hát thay đổi 
+            audio.ontimeupdate = function () {
+                if (audio.duration) {
+                    range.value = audio.currentTime / audio.duration * 100
+                }
+            }
+
+            range.oninput = function () {
+                audio.currentTime = (range.value / 100) * audio.duration;
+            }
+            // thêm class style vào bài hát được chọn
+
+            // next và pre bài hát
+            btnNext.onclick = function () {
+                if (_this.isRandom) {
+                    _this.randomSong()
+                }
+                else {
+                    _this.nextSong()
+
+                }
+                audio.play()
+
+
+
+            }
+            btnPre.onclick = function () {
+                if (_this.isRandom) {
+                    _this.randomSong()
+
+
+                }
+                else {
+                    _this.preSong()
+
+                }
+                audio.play()
+
+            }
+            // Sự kiện kết thúc và chuyển bài tự động hoặc random
+            audio.onended = function () {
+                if (_this.isLoop) {
+                    audio.play()
+                }
+                else {
+                    if (_this.isRandom) {
+                        _this.randomSong();
+                        _this.addCLassStyle()
+                        audio.play()
+                    }
+                    else {
+                        _this.index++;
+
+                        if (_this.index >= _this.songs.length) {
+                            _this.index = 0
+                        }
+                        _this.addCLassStyle()
+                        
+                        _this.loadFirtsSong()
+
+                        audio.play()
+
+
+                    }
+                }
+
+
+            }
+            // lap lai bai hat khi nhan nut lap lai
+            loop.onclick = function () {
+                _this.isLoop = !_this.isLoop;
+                _this.setSeting('isLoop',_this.isLoop)
+                if (_this.isLoop) {
+                    loop.classList.add("click")
+                }
+                else {
+                    loop.classList.remove("click")
+                }
+            }
+
+            //Lắng nghe khi click vào .music-list
+            
+            list_ms.onclick = function(e){
+                const songNode = e.target.closest('.item:not(.style)');
+               if(songNode){
+                let index_Song = Number(songNode.getAttribute('data-index'))
+                _this.index = index_Song;
+                _this.loadFirtsSong()
+                audio.play()
+                _this.addCLassStyle()
+               }
+            }
+            // thay đổi background
+            bg.onclick = function(){
+                _this.isBg = !_this.isBg
+                _this.setSeting('isBg', _this.isBg)
+                if(_this.isBg){
+                    html_bg.classList.add("bg")
+                }
+                else{
+                    html_bg.classList.remove("bg")
+                }
+            }
+
+            // thay đổi volume
+            volume.oninput = function(){
+                audio.volume = volume.value
+            }
+            volume.value = audio.volume
+
+
+
+            
+
+
+
+        },
+        loadFirtsSong: function () {
+            tg_.textContent = this.currentSong.tg
+            nameSong.textContent = this.currentSong.name
+            imgSong.src = this.currentSong.linkImg
+            audio.src = this.currentSong.linkMusic
+        },
+        nextSong: function () {
+            this.index++
+            if (this.index >= this.songs.length) {
+                this.index = 0
+            }
+            this.loadFirtsSong()
+            this.addCLassStyle()
+        
+        },
+        preSong: function () {
+            this.index--
+            if (this.index < 0) {
+                this.index = this.songs.length - 1
+            }
+            this.loadFirtsSong()
+            this.addCLassStyle()
+        
+        },
+        randomSong: function () {
+            let newIndex;
+            do {
+                newIndex = Math.floor(Math.random() * this.songs.length)
+            }
+            while (newIndex === this.index) {
+                this.index = newIndex
+                this.loadFirtsSong()
+            }
+        },
+        addCLassStyle: function () {
+
+            for (let i = 0; i < item.length; i++) {
+                item[i].classList.remove("style")
+
+            }
+            item[this.index].classList.add("style")
+
+        },
+        loadSetting:function(){
+            this.isBg = this.setting.isBg
+            this.isLoop = this.setting.isLoop
+            this.isRandom = this.setting.isRandom
+            if (this.isRandom) {
+                    random.classList.add("click")
+                }
+                else {
+                    random.classList.remove("click")
+                }
+                if (this.isLoop) {
+                    loop.classList.add("click")
+                }
+                else {
+                    loop.classList.remove("click")
+                }
+                if(this.isBg){
+                    html_bg.classList.add("bg")
+                }
+                else{
+                    html_bg.classList.remove("bg")
+                }
+        },
+       
+
+        start: function () {
+            // tải setting vào cấu hình app
+            this.loadSetting()
+            // Định nghĩa các thược tính cho obj
+            this.defineProperties()
+            // render bài hát 
+            this.render()
+            // Lắng nghe các sự kiện dom event
+            this.handleEvent()
+            // tải bài hát đầu tiên khi chạy ứng dụng
+            this.loadFirtsSong()
+        }
+
+    }
+    app.start();
+</script>
+
+
+</html>
