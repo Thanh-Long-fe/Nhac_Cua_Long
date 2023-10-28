@@ -338,7 +338,7 @@
                 
             </div>
             <h4 class="title-now">
-                Playing now
+                Playing now 
             </h4>
 
             <div class="img">
@@ -360,7 +360,7 @@
                 <div class="play">
                     <i class="ti-control-play"></i>
                     <i class="ti-control-pause hide"></i>
-                </div>
+                </div> 
                 <div class="right">
                     <i class="ti-control-skip-forward"></i>
                 </div>
@@ -600,6 +600,7 @@
             btnNext.onclick = function () {
                 if (_this.isRandom) {
                     _this.randomSong()
+
                 }
                 else {
                     _this.nextSong()
@@ -733,6 +734,7 @@
             while (newIndex === this.index) {
                 this.index = newIndex
                 this.loadFirtsSong()
+                this.addCLassStyle()
             }
         },
         addCLassStyle: function () {
